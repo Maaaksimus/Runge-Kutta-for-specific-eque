@@ -1,3 +1,5 @@
+#include "mylib.h"
+
 int chooseMain(double *a, int n, int num)
 {
     double v_max = a[num * n + num];
@@ -47,7 +49,7 @@ void solveLineralSystem(int n, double *a, double *b, double *x, int *err)
     }
     for (int i = 0; i < n; i++) {
         if ((a[i * n + i] > -EPS) && (a[i * n + i] < EPS)) {
-            *err = -4;
+            *err = -1;
             return;
         }
     }
