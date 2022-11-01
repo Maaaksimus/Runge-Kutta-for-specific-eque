@@ -1,15 +1,27 @@
 #include <stdio.h>
 
+#define left 0
+#define right 1
+
 int main(int argc, char *argv[]) {
 
 }
 
-void RungeKutta(double alph, double bett, double *C) {
+void RungeKutta(double alph, double bett, double C[][]) {
 	// here will be formulas, which count value R-K in points
 }
 
-double RKRes(int n, int k, double x, double a, double b, double *C) {
+double RKRes(int n, int k, double x, double *C[]) { // find value of k-th func in point x
+    int rb = 1;
+	double h  = 1. / n;
+    for (int i = 1; i < n; i++) {
+        if (x < i*h) {
+            rb = i;
+            break;
+        }
+    }
     
+	return (x - h*(rb - 1)) / h * (C[k][rb] - C[k][rb - 1]);
 }
 
 void findEdge(double *edge) { // func ready, it count edge parametrs
