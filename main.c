@@ -3,7 +3,7 @@ int main(int argc, char *argv[]) {
 }
 
 void RungeKutta(double alph, double bett, double *C) {
-	// here will be formulas
+	// here will be formulas, which count value R-K in points
 }
 
 double RKRes(int n, int k, double x, double a, double b, double *C) {
