@@ -1,10 +1,30 @@
 #include <stdio.h>
+#include <malloc.h>
 #include <math.h>
 
-#define left 0
-#define right 1
+// #define left 0
+// #define right 1
+#define syst 10
 
 int main(int argc, char *argv[]) {
+	double e[2], **u;
+	int n;
+	char *endptr;
+
+
+	n = (int)strtol(argv[1], &endptr, syst);
+    if (n <= 0) {
+        printf("Incorrect value for argument n\n");
+        return -1;
+    }
+
+	u = (double **)malloc(sizeof(double *)*4);
+	for (int i = 0; i < n; i ++) {
+		u[i] = (double *)malloc(sizeof(double)*n);
+	}
+	
+	findEdge(n, e);
+	RungeKutta(n, e[0], e[1], u);
 
 }
 
@@ -18,33 +38,33 @@ void RungeKutta(int n, double alph, double bett, double *u[]) { // this func cou
 	u[3][0] = bett;
 
 	for (int i = 0; i < n - 1; i ++) {
-		C[0][0] = u[i][1];
-		C[0][1] = u[i][2];
-		C[0][2] = u[i][3];
+		C[0][0] = u[1][i];
+		C[0][1] = u[2][i];
+		C[0][2] = u[3][i];
 		C[0][3] = /*g(x)*/ - u[i][3] - u[i - 1][0] * sin(i*h);
 
-		C[1][0] = u[i][1] + C[0][1] * h / 2.;
-		C[1][1] = u[i][2] + C[0][2] * h / 2.;
-		C[1][2] = u[i][3] + C[0][3] * h / 2.;
-		C[1][3] = /*g(x)*/ - (u[i][3] + C[0][3] * h / 2.) - (u[i][0] + C[0][0] * h / 2.) * sin((i + 1./2.)*h);
+		C[1][0] = u[1][i] + C[0][1] * h / 2.;
+		C[1][1] = u[2][i] + C[0][2] * h / 2.;
+		C[1][2] = u[3][i] + C[0][3] * h / 2.;
+		C[1][3] = /*g(x)*/ - (u[3][i] + C[0][3] * h / 2.) - (u[0][i] + C[0][0] * h / 2.) * sin((i + 1./2.)*h);
 
-		C[2][0] = u[i][1] + C[1][1] * h / 2.;
-		C[2][1] = u[i][2] + C[1][2] * h / 2.;
-		C[2][2] = u[i][3] + C[1][3] * h / 2.;
-		C[2][3] = /*g(x)*/ - (u[i][3] + C[1][3] * h / 2.) - (u[i][0] + C[1][0] * h / 2.) * sin((i + 1./2.)*h);
+		C[2][0] = u[1][i] + C[1][1] * h / 2.;
+		C[2][1] = u[2][i] + C[1][2] * h / 2.;
+		C[2][2] = u[3][i] + C[1][3] * h / 2.;
+		C[2][3] = /*g(x)*/ - (u[3][i] + C[1][3] * h / 2.) - (u[0][i] + C[1][0] * h / 2.) * sin((i + 1./2.)*h);
 
-		C[3][0] = u[i][1] + C[0][1] * h / 2.;
-		C[3][1] = u[i][2] + C[0][2] * h / 2.;
-		C[3][2] = u[i][3] + C[0][3] * h / 2.;
-		C[3][3] = /*g(x)*/ - (u[i][3] + C[0][3] * h) - (u[i][0] + C[0][0] * h) * sin((i + 1)*h);
+		C[3][0] = u[1][i] + C[0][1] * h / 2.;
+		C[3][1] = u[2][i] + C[0][2] * h / 2.;
+		C[3][2] = u[3][i] + C[0][3] * h / 2.;
+		C[3][3] = /*g(x)*/ - (u[3][i] + C[0][3] * h) - (u[0][i] + C[0][0] * h) * sin((i + 1)*h);
 
 		for (int j = 0; j < 4; j ++) {
-			u[i + 1][j] = u[i][j] + (h / 2.)*(C[0][j] + 2*C[1][j] + 2*C[2][j] + C[3][j]);
+			u[j][i + 1] = u[j][i] + (h / 2.)*(C[0][j] + 2*C[1][j] + 2*C[2][j] + C[3][j]);
 		}
 	}
 }
 
-double RKRes(int n, int k, double x, double *u[]) { // find value of k-th func in point x
+/*double RKRes(int n, int k, double x, double *u[]) { // find value of k-th func in point x
     int rb = 1;
 	double h  = 1. / n;
     for (int i = 1; i < n; i++) {
@@ -55,7 +75,7 @@ double RKRes(int n, int k, double x, double *u[]) { // find value of k-th func i
     }
     
 	return (x - h*(rb - 1)) / h * (u[k][rb] - u[k][rb - 1]);
-}
+}*/
 
 void findEdge(int n, double *edge) { // func ready, it count edge parametrs
 	
