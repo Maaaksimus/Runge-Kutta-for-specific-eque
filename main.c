@@ -27,9 +27,9 @@ int main() {
 		u[i] = (double *)malloc(sizeof(double)*n);
 	}
 	
-	// findEdge(n, e);
-	// RungeKutta(n, e[0], e[1], u);
-	RungeKutta(n, pow(M_PI, 2) / 2., 0, u);
+	findEdge(n, e);
+	RungeKutta(n, e[0], e[1], u);
+	// RungeKutta(n, pow(M_PI, 2) / 2., 0, u);
 
 	out = fopen("res.txt", "w");
 
@@ -137,13 +137,15 @@ void findEdge(int n, double *edge) { // func ready, it count edge parametrs
 
 	A[0] = abc_0[0];
 	A[1] = abc_0[1];
-	b[0] = (-1)*abc_0[2];
+	b[0] = 1 - abc_0[2];
 
 	A[2] = abc_1[0];
 	A[3] = abc_1[1];
 	b[1] = (-1)*abc_1[2];
 
 	solveLineralSystem(2, A, b, edge, &err);
+
+	// printf("Where?\n");
 
 	if (err == -1) {
 		printf("Change parametrs pls\n");
