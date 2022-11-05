@@ -75,7 +75,7 @@ void RungeKutta(int n, double alph, double bett, double **u) { // this func coun
 		C[3][2] = u[3][i] + C[2][3] * h;
 		C[3][3] = g((i + 1)*h) - (u[3][i] + C[2][3] * h) - (u[0][i] + C[2][0] * h) * sin((i + 1)*h);
 
-		printf("step %d: %lf %lf %lf %lf\n", i, C[0][0], C[1][0], C[2][0], C[3][0]);
+		// printf("step %d: %lf %lf %lf %lf\n", i, C[0][0], C[1][0], C[2][0], C[3][0]);
 
 		for (int j = 0; j < 4; j ++) {
 			u[j][i + 1] = u[j][i] + (h / 6.)*(C[0][j] + 2*C[1][j] + 2*C[2][j] + C[3][j]);
