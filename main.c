@@ -7,7 +7,7 @@
 int main() {
 	FILE *out;
 	double e[2], **u;
-	int n = 20;
+	int n = 190;
 	char *endptr;
 	double h;
 
@@ -28,7 +28,8 @@ int main() {
 	}
 	
 	// findEdge(n, e);
-	RungeKutta(n, -pow(M_PI, 2) / 2., 0, u);
+	// RungeKutta(n, e[0], e[1], u);
+	RungeKutta(n, pow(M_PI, 2) / 2., 0, u);
 
 	out = fopen("res.txt", "w");
 
