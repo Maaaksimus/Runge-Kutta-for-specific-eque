@@ -40,14 +40,12 @@ void swapLines(double *a, double *b, int n, int m_n, int num)
 
 void solveLineralSystem(int n, double *a, double *b, double *x, int *err)
 {
-    printer(n, a, b);
     for (int i = 0; i < n; i++) {
         int col_max;
         col_max = chooseMain(a, n, i);
         if ((a[i * n + col_max] > EPS) || (a[i * n + col_max] < -EPS)) {
             swapLines(a, b, n, col_max, i);
         }
-        printer(n, a, b);
     }
     for (int i = 0; i < n; i++) {
         if ((a[i * n + i] > -EPS) && (a[i * n + i] < EPS)) {

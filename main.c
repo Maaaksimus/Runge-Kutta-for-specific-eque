@@ -11,14 +11,8 @@ int main() {
 	char *endptr;
 	double h;
 
-	printf("nana\n");
-
-	// scanf("%d", n);
-	// n = (int)strtol(argv[1], &endptr, syst);
-    // if (n <= 0) {
-    //     printf("Incorrect value for argument n\n");
-    //     return -1;
-    // }
+	printf("Enter the number of points: ");
+	scanf("%d", &n);
 
 	h = 1. / n;
 
@@ -37,7 +31,7 @@ int main() {
 		fprintf(out, "%lf %lf\n", i*h, u[0][i]);
 	}
 
-	printf("finish\n");
+	printf("Check results in the file\n");
 	return 0;
 }
 
@@ -116,18 +110,15 @@ void findEdge(int n, double *edge) { // func ready, it count edge parametrs
 		A_0[i*3 + 2] = 1;
         RungeKutta(n, A_0[i*3], A_0[i*3 + 1], u);
 		b_0[i] = u[0][n - 1];
-		printf("b_0: %lf, ", b_0[i]);
 
 		A_1[i*3] = (i + 1)*(i + 1) / 2.;
 		A_1[i*3 + 1] = 1 - i / 3.;
 		A_1[i*3 + 2] = 1;
         RungeKutta(n, A_1[i*3], A_1[i*3 + 1], u);
 		b_1[i] = u[1][n - 1];
-		printf("b_1: %lf\n", b_1[i]);
 	}
 
 	solveLineralSystem(3, A_0, b_0, abc_0, &err);
-	printf("%d\n", err);
 	solveLineralSystem(3, A_1, b_1, abc_1, &err);
 
 	if (err == -1) {
