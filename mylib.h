@@ -15,5 +15,4 @@ void printer(int n, double *a, double *b);
 double g(double x);
 double sol(double x);
 void RungeKutta(int n, double alph, double bett, double **u);
-void RungeKutta2(int n, double alph, double bett, double **u, double eps);
 void findEdge(int n, double *edge);
