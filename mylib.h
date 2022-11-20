@@ -3,7 +3,7 @@
 #include <math.h>
 
 #define syst 10
-#define EPS 1e-6
+#define EPS 1e-2
 
 // Gauss func
 int chooseMain(double *a, int n, int num);
@@ -13,5 +13,7 @@ void printer(int n, double *a, double *b);
 
 // Runge-Kutta func
 double g(double x);
+double sol(double x);
 void RungeKutta(int n, double alph, double bett, double **u);
+void RungeKutta2(int n, double alph, double bett, double **u, double eps);
 void findEdge(int n, double *edge);
