@@ -13,6 +13,7 @@ void printer(int n, double *a, double *b);
 
 // Runge-Kutta func
 double g(double x);
+void f(double x, double u0, double u1, double u2, double u3, double *C);
 double sol(double x);
 void RungeKutta(int n, double alph, double bett, double **u);
 void findEdge(int n, double *edge);
